@@ -1,0 +1,122 @@
+DROP DATABASE distribuidora;
+CREATE DATABASE distribuidora;
+USE distribuidora;
+
+CREATE TABLE fornecedores
+	(
+    id_fornecedor INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    fornecedor_nome VARCHAR(255) NOT NULL,
+    fornecedor_email VARCHAR(255)
+    )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+    
+CREATE TABLE bebidas
+	(
+    id_bebida INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id_fornecedor INT NOT NULL,
+    bebida_nome VARCHAR(255) NOT NULL,
+    bebida_preco DECIMAL(10,2) NOT NULL,
+    bebida_quantidade INT NOT NULL,
+    FOREIGN KEY (id_fornecedor) REFERENCES fornecedores (id_fornecedor)
+    )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+    
+CREATE TABLE itens_pedidos
+	(
+    id_itens_pedidos INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_bebida INT NOT NULL,
+    itens_pedidos_quantidade INT NOT NULL,
+    itens_pedidos_preco_total DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (id_bebida) REFERENCES bebidas (id_bebida)
+    )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+    
+CREATE TABLE pedidos
+	(
+    id_pedido INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT NOT NULL,
+    id_itens_pedidos INT NOT NULL,
+    pedido_data DATE NOT NULL,
+    pedido_status VARCHAR(30)
+    )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+    
+INSERT INTO fornecedores (fornecedor_nome, fornecedor_email) VALUES
+('Fornecedor A', 'fornecedorA@email.com'),
+('Fornecedor B', 'fornecedorB@email.com'),
+('Fornecedor C', 'fornecedorC@email.com'),
+('Fornecedor D', 'fornecedorD@email.com'),
+('Fornecedor E', 'fornecedorE@email.com'),
+('Fornecedor F', 'fornecedorF@email.com'),
+('Fornecedor G', 'fornecedorG@email.com'),
+('Fornecedor H', 'fornecedorH@email.com'),
+('Fornecedor I', 'fornecedorI@email.com'),
+('Fornecedor J', 'fornecedorJ@email.com');
+
+INSERT INTO bebidas (id_fornecedor, bebida_nome, bebida_preco, bebida_quantidade) VALUES
+(1, 'Cerveja Lager', 5.50, 100),
+(1, 'Vinho Tinto', 30.00, 50),
+(2, 'Refrigerante Cola', 3.00, 200),
+(2, 'Água Mineral', 2.00, 150),
+(3, 'Cerveja Pilsner', 6.00, 80),
+(3, 'Vinho Branco', 28.00, 40),
+(4, 'Suco Laranja', 4.00, 120),
+(5, 'Cerveja IPA', 7.00, 90),
+(6, 'Vodka', 50.00, 60),
+(7, 'Rum', 45.00, 70);
+
+INSERT INTO itens_pedidos (id_bebida, itens_pedidos_quantidade, itens_pedidos_preco_total) VALUES
+(1, 2, 11.00),
+(2, 1, 30.00),
+(3, 5, 15.00),
+(4, 10, 20.00),
+(5, 3, 21.00),
+(6, 1, 50.00),
+(7, 4, 16.00),
+(7, 2, 14.00),
+(9, 1, 7.00),
+(10, 2, 90.00);
+
+INSERT INTO pedidos (id_cliente, id_itens_pedidos, pedido_data, pedido_status) VALUES
+(1, 1, '2024-01-10', 'Concluído'),
+(2, 2, '2024-01-11', 'Pendente'),
+(1, 3, '2024-01-12', 'Cancelado'),
+(3, 4, '2024-01-13', 'Concluído'),
+(2, 5, '2024-01-14', 'Pendente'),
+(1, 6, '2024-01-15', 'Concluído'),
+(3, 7, '2024-01-16', 'Pendente'),
+(4, 8, '2024-01-17', 'Concluído'),
+(5, 9, '2024-01-18', 'Pendente'),
+(2, 10, '2024-01-19', 'Concluído');
+
+SELECT * FROM fornecedores;
+SELECT * FROM bebidas;
+SELECT * FROM itens_pedidos;
+SELECT * FROM pedidos;
+    
+
+UPDATE bebidas
+SET bebida_quantidade = bebida_quantidade + 20
+WHERE id_bebida = 1;  -- Altere o ID conforme necessário
+
+DELETE FROM fornecedores WHERE id_fornecedor = 8;
+DELETE FROM fornecedores WHERE id_fornecedor = 9;
+DELETE FROM fornecedores WHERE id_fornecedor = 10;
+
+DELETE FROM bebidas WHERE id_bebida = 8;
+
+SELECT * FROM fornecedores;
+SELECT * FROM bebidas;
+SELECT * FROM itens_pedidos;
+SELECT * FROM pedidos;
+
+SELECT DISTINCT bebida_nome FROM bebidas;
+
+SELECT * FROM bebidas ORDER BY bebida_preco DESC limit 5;
+
+CREATE TABLE bebidas_caras AS SELECT * FROM bebidas ORDER BY bebida_preco DESC limit 5;
+
+SELECT * FROM bebidas_caras;
+
+
+
+
+
+
+
