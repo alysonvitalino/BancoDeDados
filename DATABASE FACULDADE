@@ -1,4 +1,4 @@
-DROP DATABASE faculdade;
+
 CREATE DATABASE faculdade;
 USE faculdade;
 
