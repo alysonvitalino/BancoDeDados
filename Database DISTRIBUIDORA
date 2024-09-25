@@ -1,4 +1,4 @@
-DROP DATABASE distribuidora;
+
 CREATE DATABASE distribuidora;
 USE distribuidora;
 
